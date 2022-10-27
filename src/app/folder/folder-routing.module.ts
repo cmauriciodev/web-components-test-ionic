@@ -6,12 +6,24 @@ import { FolderPage } from './folder.page';
 const routes: Routes = [
   {
     path: '',
-    component: FolderPage
-  }
+    component: FolderPage,
+    children: [
+      {
+        path: '',
+        redirectTo: 'example',
+        pathMatch: 'full'
+      },
+      {
+        path: 'example',
+        loadChildren: () => import('./example/example.module').then(m => m.ExamplePageModule)
+      },
+    ]
+  },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FolderPageRoutingModule {}
+export class FolderPageRoutingModule { }
